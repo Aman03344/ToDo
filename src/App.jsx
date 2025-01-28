@@ -1,19 +1,12 @@
 import React, { useState } from "react";
-import Navbar from "./components/Navbar";
 import TodoInput from "./components/TodoInput";
-import MotivationTitle from "./components/MotivationTitle";
 import TodoList from "./components/TodoList";
 
 const App = () => {
-  const [listTodo, setListTodo] = useState([
-    {
-      id: 1,
-      text: "Just Do it",
-    },
-  ]);
+  const [listTodo, setListTodo] = useState([]);
 
-  const addList = (text) => {
-    setListTodo([{ id: crypto.randomUUID(), text: text }, ...listTodo]);
+  const addList = (todo) => {
+    setListTodo([...listTodo, { ...todo, id: Date.now() }]);
   };
 
   const deleteTodo = (id) => {
@@ -21,13 +14,10 @@ const App = () => {
   };
 
   return (
-    <div className="w-full h-[100vh] bg-gray-400 flex justify-center items-start pt-10 md: h-auto:">
-      <div className="w-[90%] max-w-[600px] h-auto pb-5 bg-[#15141A] rounded-3xl flex flex-col justify-start items-center sm:w-[95%] md:w-[80%]">
-        <Navbar />
-        <TodoInput addList={addList} />
-        <MotivationTitle />
-        <TodoList listTodo={listTodo} deleteTodo={deleteTodo} />
-      </div>
+    <div className="w-full flex flex-col items-center bg-[#1e1e1e] min-h-screen">
+      <h1 className="text-4xl font-semibold text-white mt-6 mb-4">Todo App</h1>
+      <TodoInput addList={addList} />
+      <TodoList listTodo={listTodo} deleteTodo={deleteTodo} />
     </div>
   );
 };
